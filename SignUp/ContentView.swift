@@ -7,48 +7,6 @@
 
 import SwiftUI
 
-// MARK: - Form Field Model
-struct FormField {
-    var text: String
-    var error: String?
-    var isSecure: Bool
-    var contentType: UITextContentType
-    var keyboardType: UIKeyboardType
-}
-
-// MARK: - Form Field View
-struct FormFieldView: View {
-    let title: String
-    @Binding var field: FormField
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text(title)
-                .font(.system(size: 15, weight: .bold))
-                .foregroundColor(.white)
-            
-            if let error = field.error {
-                Text(error)
-                    .font(.system(size: 15, weight: .semibold))
-                    .foregroundColor(.red)
-            }
-            
-            Group {
-                if field.isSecure {
-                    SecureField(title, text: $field.text)
-                } else {
-                    TextField(title, text: $field.text)
-                }
-            }
-            .textFieldStyle(.roundedBorder)
-            .textContentType(field.contentType)
-            .keyboardType(field.keyboardType)
-            .textInputAutocapitalization(.never)
-            .autocorrectionDisabled()
-        }
-    }
-}
-
 // MARK: - Content View
 struct ContentView: View {
     @State private var username = FormField(
